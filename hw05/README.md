@@ -33,6 +33,21 @@ make clean
 - OPEN: The lock is open.
 
 ## State Diagram
+
+```mermaid
+stateDiagram-v2
+    [*] --> LOCKED
+    LOCKED --> GOT1: 3
+    GOT1 --> GOT2: 1
+    GOT2 --> OPEN: 4
+    LOCKED --> LOCKED: Wrong / BEEP
+    GOT1 --> LOCKED: Wrong / BEEP
+    GOT2 --> LOCKED: Wrong / BEEP
+    GOT1 --> LOCKED: Timeout
+    GOT2 --> LOCKED: Timeout
+    OPEN --> LOCKED: Close / LOCK
+    OPEN --> LOCKED: Timeout / LOCK
+```
 LOCKED --3--> GOT1
 
 GOT1 --1--> GOT2
