@@ -1,0 +1,2 @@
+0
+balanced: 2 pairs, deepest 2

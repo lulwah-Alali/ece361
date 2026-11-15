@@ -1,0 +1,2 @@
+0
+balanced: 9 pairs, deepest 9
