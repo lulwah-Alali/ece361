@@ -56,7 +56,25 @@ int main(void)
     CHECK(ht_longest_chain(NULL) == 0);
     ht_destroy(NULL);
     printf("PASS: NULL arguments\n");
+    t = ht_create(1000);
+    CHECK(t != NULL);
+    for (int i = 10; i <= 10000; i += 10) {
+        CHECK(ht_add(t, i) == 0);
+    }
+    CHECK(ht_size(t) == 1000);
+    CHECK(ht_longest_chain(t) == 10);
+    ht_destroy(t);
+    printf("PASS: 1000 buckets\n");
 
+    t = ht_create(1009);
+    CHECK(t != NULL);
+    for (int i = 10; i <= 10000; i += 10) {
+        CHECK(ht_add(t, i) == 0);
+    }
+    CHECK(ht_size(t) == 1000);
+    CHECK(ht_longest_chain(t) == 1);
+    ht_destroy(t);
+    printf("PASS: 1009 buckets\n");
     printf("All tests passed!\n");
     return 0;
 }
