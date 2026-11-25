@@ -1,6 +1,4 @@
-# ECE 361 Project 3
-
-## Elevator - Three Floors
+# Elevator - Three Floors
 
 This project simulates a three-floor elevator system.
 The elevator moves between floors 1, 2, and 3.
@@ -12,9 +10,10 @@ its status.
 - Elevator state machine.
 - Temperature and humidity readings.
 - Overheat and fault handling.
-- Sensor data storage.
-- Bit manipulation.
-- Moving average temperature report.
+- AVL tree for sensor data storage.
+- Sorted dynamic array with binary search.
+- 32-bit status word and RGB colors.
+- Moving average of 10 temperature readings.
 
 ## How to Build
 
@@ -25,13 +24,13 @@ make
 ## How to Run
 
 ```bash
-./elevator scenarios/test1.txt
+./elevator scenarios/normal.txt
 ```
 
 ## How to Run with Report
 
 ```bash
-./elevator scenarios/test1.txt --report
+./elevator scenarios/report.txt --report
 ```
 
 ## How to Run Tests
@@ -40,14 +39,45 @@ make
 make test
 ```
 
-The bits, FSM, store, aux, and sensor tests passed.
-The report test also ran without errors.
+The test suite runs six unit test programs and
+seven scenario tests.
+
+## Test Scenarios
+
+- normal: Normal elevator operation.
+- growth: Dynamic array growth and search.
+- thresholds: Temperature and humidity thresholds.
+- overheat: Overheat and fault recovery.
+- unexpected: Unexpected switch inputs.
+- report: Moving average report.
+- midnight: Timestamp crossing midnight.
+
+## Test Results
+
+Tests passed: 13
+Tests failed: 0
+
+No compiler warnings were reported.
+
+## Sanitizer Testing
+
+```bash
+make clean
+make test CFLAGS="-std=c11 -Wall -Wextra -fsanitize=address,undefined -g"
+```
+
+All 13 tests passed with no reported sanitizer errors.
 
 ## How to Clean
 
 ```bash
 make clean
 ```
+
+## Project Documentation
+
+See SPEC.md for design details, state transitions,
+data structures, and design decisions.
 
 ## AI Usage
 

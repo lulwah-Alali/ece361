@@ -1,0 +1,11 @@
+2023-11-14 22:13:20 state=IDLE temp=22.0 rh=45.0 leds=0x0 status=0x00000040
+2023-11-14 22:13:21 state=UP temp=22.0 rh=45.0 leds=0x1 status=0x00000049
+2023-11-14 22:13:22 state=UP temp=22.0 rh=45.0 leds=0x1 status=0x00000049
+2023-11-14 22:13:23 state=UP temp=41.0 rh=45.0 leds=0x1 status=0x00000049
+2023-11-14 22:13:24 state=UP temp=41.0 rh=45.0 leds=0x1 status=0x00000049
+2023-11-14 22:13:25 state=UP temp=41.0 rh=45.0 leds=0x1 status=0x00000049
+2023-11-14 22:13:26 state=UP temp=41.0 rh=45.0 leds=0x1 status=0x00000049
+2023-11-14 22:13:27 state=FAULT temp=41.0 rh=45.0 leds=0x4 status=0x000000A4
+2023-11-14 22:13:28 state=FAULT temp=38.0 rh=45.0 leds=0x4 status=0x000000A4
+2023-11-14 22:13:29 state=IDLE temp=35.0 rh=45.0 leds=0x0 status=0x00000080
+2023-11-14 22:13:30 state=IDLE temp=22.0 rh=45.0 leds=0x0 status=0x00000080

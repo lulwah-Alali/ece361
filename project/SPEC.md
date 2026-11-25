@@ -120,3 +120,102 @@ The status word is a 32-bit unsigned integer.
 | DOWN | Cyan | 0, 255, 255 |
 | DOORS_OPEN | Yellow | 255, 255, 0 |
 | FAULT | Red | 255, 0, 0 |
+
+### Design Decisions
+
+The elevator handles one request at a time.
+New calls are ignored while the elevator is busy.
+A call to the current floor opens the doors without
+moving the elevator. If overheating happens while
+moving, the elevator stops at the next floor for safety.
+
+### Record Structure and Tree Storage
+
+The record_t structure contains three fields:
+- reading: The sensor reading and timestamp.
+- state: The current elevator state.
+- status: The 32-bit status word.
+
+Records are stored in a binary search tree using
+timestamps as keys. Smaller keys go to the left,
+and larger keys go to the right.
+
+Since timestamps usually arrive in increasing order,
+a normal binary search tree could become unbalanced.
+This project uses AVL rotations to keep the tree
+balanced. Insertion and searching take O(log n) time.
+An in-order traversal visits records in sorted order
+and takes O(n) time.
+
+### Sorted Dynamic Array
+
+The second data structure stores temperatures in
+ascending order. When a new temperature is added,
+larger values are shifted to make space for it.
+The array grows when more space is needed.
+
+Binary search finds the first temperature at or above
+the requested threshold. The result is the total
+number of readings minus that position.
+Duplicate temperatures are included in the count.
+
+### Moving Average Report
+
+The Q5 report calculates the moving average of the
+last 10 temperature readings in timestamp order.
+
+The first result is printed after 10 readings.
+Each new reading replaces the oldest reading in
+a circular buffer. A running sum is updated by
+subtracting the oldest value and adding the new value.
+
+The average is the running sum divided by 10.
+Each result includes the current timestamp and
+the average temperature with two decimal places.
+
+Each update takes O(1) time. The complete report
+takes O(n) time and uses O(10) extra buffer space.
+
+### Year 2038 Problem
+
+The Year 2038 problem happens when a signed 32-bit
+Unix timestamp reaches its maximum value on
+January 19, 2038, at 03:14:07 UTC.
+
+After this time, the timestamp cannot represent
+the next second correctly. This can cause problems
+with storing, comparing, and displaying dates.
+
+Using a 64-bit time_t prevents this specific problem.
+The project uses time_t for timestamps, but its size
+depends on the system. A 64-bit time_t should be
+used for long-term operation.
+
+### Evaluation of Elevator States
+
+The five states make the elevator easy to understand
+and test. UP and DOWN separate the two movement
+directions. DOORS_OPEN controls the waiting time,
+and FAULT provides a separate safety state.
+
+One limitation is that the pending fault condition
+requires extra information inside the movement
+states. A separate pending fault state could make
+this condition clearer, but it would also increase
+the number of states and transitions.
+
+### Comparison with an Alternative Structure
+
+A sorted dynamic array is useful because threshold
+queries take O(log n) time using binary search.
+However, insertion takes O(n) time in the worst
+case because existing values may need to be shifted.
+
+An unsorted dynamic array is another option.
+Adding a value takes O(1) amortized time, but
+counting values at or above a threshold takes
+O(n) time because every value must be checked.
+
+Both structures use O(n) memory. The sorted array
+is a good choice when fast threshold searches
+are important.
