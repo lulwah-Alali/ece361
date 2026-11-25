@@ -107,7 +107,7 @@ The status word is a 32-bit unsigned integer.
 | 0-2 | Current elevator state |
 | 3 | Moving up |
 | 4 | Moving down |
-| 5 | DOORS_OPEN state |
+| 5 | Doors open (DOORS_OPEN or FAULT) |
 | 6-7 | Current floor |
 | 8-31 | Unused, set to zero |
 
